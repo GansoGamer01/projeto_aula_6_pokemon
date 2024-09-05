@@ -1,6 +1,6 @@
 async function pokemons()
 {
-   const api_fetch = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10000")
+   const api_fetch = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
 
    const api_response = await api_fetch.json()
 
@@ -53,6 +53,9 @@ async function pokemons()
 
         li.addEventListener("click",()=>{
             console.log(poke_infos)
+            localStorage.setItem("pokeId",item.id)
+            localStorage.setItem("pokemon",JSON.stringify(poke_infos))
+            window.location.href = "./POKEXPECS/index.html"
         })
    })   
 }
