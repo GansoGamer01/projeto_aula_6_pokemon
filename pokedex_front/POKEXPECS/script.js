@@ -4,27 +4,34 @@ async function getPokemon()
     const pokeInfo = JSON.parse(localStorage.getItem("pokemon"))
     console.log(pokeInfo,"info do pokemon")
 
-    const ul = document.querySelector("ul")
-    ul.insertAdjacentHTML("beforeend",`
-        <li>
-            <p>${item.types}</p>
-            <p>${item.abilities}</p>
-            <p>${item.stats}</p>
-        </li>
+    const img = document.getElementById("pokeImage")
+    img.src = pokeInfo.sprites.front_default
+    img.alt = pokeInfo.name
+
+    const pokename = document.getElementById("pokename")
+    pokename.innerText = pokeInfo.name
+
+    const li_type = document.getElementById("type")
+    pokeInfo.types.forEach(async(item)=>{
+        li_type.insertAdjacentHTML("beforeend",`
+            
+            <p>${item.type.name}</p>
             `)
+    });
+  
 
-        const img = document.getElementById(item.name)
-        img.src = pokeInfo.sprites.front_default
+    const li_skills = document.getElementById("skills")
+    pokeInfo.abilities.forEach(async(item)=>{
+        li_skills.insertAdjacentHTML("beforeend",`
+            <p>${item.ability.name}</p>
+            `)
+    });
 
-        const li = document.getElementById(`${item.name}li`)
-            li.setAttribute("style",`background-color: ${colors[poke_infos.types[0].type.name]};`)
-        console.log(li)
-
-        li.addEventListener("click",()=>{
-            console.log(poke_infos)
-            localStorage.setItem("pokeId",item.id)
-            localStorage.setItem("pokemon",JSON.stringify(poke_infos))
-            window.location.href = "./POKEXPECS/index.html"
-        })
+    const li_stats = document.getElementById("stats")
+    pokeInfo.stats.forEach(async(item)=>{
+        li_stats.insertAdjacentHTML("beforeend",`
+            <p>${item.stat.name} - ${item.base_stat}</p>
+            `)
+    });
 }
 getPokemon()
